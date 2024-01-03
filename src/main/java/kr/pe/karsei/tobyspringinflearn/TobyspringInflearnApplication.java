@@ -18,6 +18,8 @@ public class TobyspringInflearnApplication {
         // Tomcat 뿐만 아니라 다른 서버로도 이용 가능하도록 스프링에서 추상화를 지원한다.
         ServletWebServerFactory factory = new TomcatServletWebServerFactory();
         WebServer webServer = factory.getWebServer(servletContext -> {
+            HelloController helloController = new HelloController();
+
             // 서블릿을 추가한다고 단순히 서블릿이 동작되지는 않는다. 맵핑을 추가해야 한다.
             servletContext
                     .addServlet("frontController", new HttpServlet() {
@@ -26,12 +28,12 @@ public class TobyspringInflearnApplication {
                             if (req.getRequestURI().equals("/hello") && req.getMethod().equals(HttpMethod.GET.name())) {
                                 String name = req.getParameter("name");
 
-                                resp.setStatus(HttpStatus.OK.value());
-                                resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-                                resp.getWriter().println("Hello Servlet: %s".formatted(name));
-                            }
-                            else if (req.getRequestURI().equals("/user")) {
-                                // Nothing
+                                String returnedName = helloController.hello(name);
+
+                                // resp.setStatus(HttpStatus.OK.value()); // 에러가 나지 않는한 서블릿 컨테이너가 기본적으로 200 전달
+                                // resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+                                resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
+                                resp.getWriter().println("Hello Servlet: %s".formatted(returnedName));
                             }
                             else {
                                 resp.setStatus(HttpStatus.NOT_FOUND.value());
