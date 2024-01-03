@@ -7,6 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import java.io.IOException;
 
@@ -18,11 +21,12 @@ public class TobyspringInflearnApplication {
             // 서블릿을 추가한다고 단순히 서블릿이 동작되지는 않는다. 맵핑을 추가해야 한다.
             servletContext.addServlet("hello", new HttpServlet() {
                 @Override
-                protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                    super.service(req, resp);
-                    resp.setStatus(200);
-                    resp.setHeader("Content-Type", "test/plain");
-                    resp.getWriter().println("Hello Servlet");
+                protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                    String name = req.getParameter("name");
+
+                    resp.setStatus(HttpStatus.OK.value());
+                    resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+                    resp.getWriter().println("Hello Servlet: %s".formatted(name));
                 }
             })
                     // 서블릿 컨테이너가 요청이 들어올 때 어느 서블릿으로 연결할지의 맵핑을 정해주어야 한다.
