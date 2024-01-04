@@ -24,6 +24,8 @@ public class TobyspringInflearnApplication {
                     .addServlet("dispatchServlet",
                             // DispatcherServlet 은 GenericWebApplicationContext 를 사용함.
                             // 그러나 아직 어떻게 넘어왔을 때 어떤 핸들러에게 전달해야 하는지는 정해지지 않음
+                            // Bean 을 다 뒤져서 웹 요청을 처리할 수 있는 맵핑 정보를 가지고 있는 클래스를 찾는다(@RequestMapping 등) -> 맵핑 테이블을 만들어서 웹 요청이 오면 해당 테이블을 참조해서 연결한다.
+                            // 따라서 클래스 레벨에 반드시 맵핑 어노테이션을 붙여야 한다.
                             new DispatcherServlet(context)
                     )
                     // 서블릿 컨테이너가 요청이 들어올 때 어느 서블릿으로 연결할지의 맵핑을 정해주어야 한다.
