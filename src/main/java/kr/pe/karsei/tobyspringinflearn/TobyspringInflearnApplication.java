@@ -13,7 +13,7 @@ public class TobyspringInflearnApplication {
         context.registerBean(HelloController.class);
         //context.registerBean(HelloService.class); // 인터페이스는 안됨
         context.registerBean(SimpleHelloService.class);
-        // 컨테이너를 초기화 -> Bean 을 만들어줌
+        // 컨테이너를 초기화 -> Bean 을 만들어줌. 템플릿 메소드 패턴으로 일정한 순서에 의해 작업이 호출되고 서브 클래스에서 확장되는 방법을 통해 확장하도록 만듬
         context.refresh();
 
         // Tomcat 뿐만 아니라 다른 서버로도 이용 가능하도록 스프링에서 추상화를 지원한다.
