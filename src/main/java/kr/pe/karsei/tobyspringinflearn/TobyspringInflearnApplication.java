@@ -1,21 +1,14 @@
 package kr.pe.karsei.tobyspringinflearn;
 
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-
-import java.io.IOException;
+import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 public class TobyspringInflearnApplication {
     public static void main(String[] args) {
-        GenericApplicationContext context = new GenericApplicationContext();
+        GenericWebApplicationContext context = new GenericWebApplicationContext();
         // 메타 정보를 넣어주는 방식으로 Bean 등록 (보통 Bean 클래스를 지정해준다) Bean 이 어떻게 구성되어 지는가 등을
         context.registerBean(HelloController.class);
         //context.registerBean(HelloService.class); // 인터페이스는 안됨
@@ -28,25 +21,11 @@ public class TobyspringInflearnApplication {
         WebServer webServer = factory.getWebServer(servletContext -> {
             // 서블릿을 추가한다고 단순히 서블릿이 동작되지는 않는다. 맵핑을 추가해야 한다.
             servletContext
-                    .addServlet("frontController", new HttpServlet() {
-                        @Override
-                        protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-                            if (req.getRequestURI().equals("/hello") && req.getMethod().equals(HttpMethod.GET.name())) {
-                                String name = req.getParameter("name");
-
-                                HelloController helloController = context.getBean(HelloController.class);
-                                String returnedName = helloController.hello(name);
-
-                                // resp.setStatus(HttpStatus.OK.value()); // 에러가 나지 않는한 서블릿 컨테이너가 기본적으로 200 전달
-                                // resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-                                resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
-                                resp.getWriter().println("Hello Servlet: %s".formatted(returnedName));
-                            }
-                            else {
-                                resp.setStatus(HttpStatus.NOT_FOUND.value());
-                            }
-                        }
-                    })
+                    .addServlet("dispatchServlet",
+                            // DispatcherServlet 은 GenericWebApplicationContext 를 사용함.
+                            // 그러나 아직 어떻게 넘어왔을 때 어떤 핸들러에게 전달해야 하는지는 정해지지 않음
+                            new DispatcherServlet(context)
+                    )
                     // 서블릿 컨테이너가 요청이 들어올 때 어느 서블릿으로 연결할지의 맵핑을 정해주어야 한다.
                     .addMapping("/*");
         });
