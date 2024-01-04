@@ -18,6 +18,8 @@ public class TobyspringInflearnApplication {
         GenericApplicationContext context = new GenericApplicationContext();
         // 메타 정보를 넣어주는 방식으로 Bean 등록 (보통 Bean 클래스를 지정해준다) Bean 이 어떻게 구성되어 지는가 등을
         context.registerBean(HelloController.class);
+        //context.registerBean(HelloService.class); // 인터페이스는 안됨
+        context.registerBean(SimpleHelloService.class);
         // 컨테이너를 초기화 -> Bean 을 만들어줌
         context.refresh();
 
