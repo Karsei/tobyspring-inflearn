@@ -3,13 +3,28 @@ package kr.pe.karsei.tobyspringinflearn;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+@Configuration
 public class TobyspringInflearnApplication {
+    @Bean
+    // 평범한 팩토리 메서드
+    public HelloController helloController(HelloService helloService) {
+        return new HelloController(helloService);
+    }
+
+    @Bean
+    public HelloService helloService() {
+        return new SimpleHelloService();
+    }
+
     public static void main(String[] args) {
         // Spring 컨테이너 안에서 서블릿이 동작되도록 함
-        GenericWebApplicationContext context = new GenericWebApplicationContext() {
+        // GenericWebApplicationContext 에서 AnnotationConfigWebApplicationContext 로 변경
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext() {
             @Override
             protected void onRefresh() {
                 super.onRefresh(); // 생략하면 안됨
@@ -34,10 +49,8 @@ public class TobyspringInflearnApplication {
                 webServer.start();
             }
         };
-        // 메타 정보를 넣어주는 방식으로 Bean 등록 (보통 Bean 클래스를 지정해준다) Bean 이 어떻게 구성되어 지는가 등을
-        context.registerBean(HelloController.class);
-        //context.registerBean(HelloService.class); // 인터페이스는 안됨
-        context.registerBean(SimpleHelloService.class);
+        // 이 구성 정보를 담긴 클래스를 등록하도록 해주어야 한다. -> Bean 생성됨
+        context.register(TobyspringInflearnApplication.class);
         // 컨테이너를 초기화 -> Bean 을 만들어줌. 템플릿 메소드 패턴으로 일정한 순서에 의해 작업이 호출되고 서브 클래스에서 확장되는 방법을 통해 확장하도록 만듬
         context.refresh();
     }
