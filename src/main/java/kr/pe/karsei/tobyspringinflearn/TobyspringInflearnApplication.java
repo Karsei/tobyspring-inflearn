@@ -1,5 +1,6 @@
 package kr.pe.karsei.tobyspringinflearn;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,6 @@ public class TobyspringInflearnApplication {
     }
 
     public static void main(String[] args) {
-        MySpringApplication.run(TobyspringInflearnApplication.class, args);
+        SpringApplication.run(TobyspringInflearnApplication.class, args);
     }
 }
