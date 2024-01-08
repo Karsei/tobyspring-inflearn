@@ -3,24 +3,14 @@ package kr.pe.karsei.tobyspringinflearn;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration
+@ComponentScan // 이 클래스가 있는 패키지부터 시작해서 하위 패키지 찾아서 @Component 가 붙은 것을 찾아내고 알아서 등록해줌
 public class TobyspringInflearnApplication {
-    @Bean
-    // 평범한 팩토리 메서드
-    public HelloController helloController(HelloService helloService) {
-        return new HelloController(helloService);
-    }
-
-    @Bean
-    public HelloService helloService() {
-        return new SimpleHelloService();
-    }
-
     public static void main(String[] args) {
         // Spring 컨테이너 안에서 서블릿이 동작되도록 함
         // GenericWebApplicationContext 에서 AnnotationConfigWebApplicationContext 로 변경
