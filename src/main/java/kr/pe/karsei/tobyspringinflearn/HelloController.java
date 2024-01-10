@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //@MyComponent // @Component 로도 가능
 //@Controller // Stereotype(전형적인) 컴포넌트
-@RestController // @Controller + @ResponseBody
+@RestController // @Controller + @ResponseBody -> 합성 Annotation
 public class HelloController {
     private final HelloService service;
 //    private final ApplicationContext applicationContext;
