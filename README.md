@@ -15,3 +15,6 @@
   * DI를 이용한 Decorator, Proxy 패턴
 * 자동 구성 기반 애플리케이션
   * 메타 어노테이션과 합성 어노테이션
+  * Bean 오브젝트의 역할과 구분 (사용자 구성 정보, 자동 구성 정보) - AutoConfiguration 관련
+    * 사용자 구성 정보 - HelloController, HelloDecorator, ...
+    * 자동 구성 정보 - TomcatServletWebServerFactory, DispatcherSerlvet, ...
