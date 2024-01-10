@@ -1,7 +1,11 @@
 package kr.pe.karsei.tobyspringinflearn;
 
+import kr.pe.karsei.config.EnableMyAutoConfiguration;
+import kr.pe.karsei.config.autoconfig.DispatcherServletConfig;
+import kr.pe.karsei.config.autoconfig.TomcatWebServerConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,5 +16,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Configuration
 @ComponentScan
-public @interface MySpringBootAnnotation {
+//@Import({DispatcherServletConfig.class, TomcatWebServerConfig.class})
+@Import(EnableMyAutoConfiguration.class) // ComponentScan 이 안되므로 직접 Import 진행
+public @interface MySpringBootApplication {
 }

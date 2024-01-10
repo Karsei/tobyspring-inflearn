@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-@Configuration
+//@Configuration // 별개 패키지에서 관리하도록 변경
 public class Config {
     // 아래 두 Bean 은 독립 실행형 애플리케이션 방식으로 동작을 하면서 요구된 Bean 들임
     // HelloController, HelloDecorator, HelloService 들은 사용자 구성 정보 / TomcatServletWebServerFactory, DispatcherServlet 들은 자동 구성 정보로 구분함 (Spring 재단에서는)
