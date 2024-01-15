@@ -17,6 +17,6 @@ import java.lang.annotation.Target;
 @Configuration
 @ComponentScan
 //@Import({DispatcherServletConfig.class, TomcatWebServerConfig.class})
-@Import(EnableMyAutoConfiguration.class) // ComponentScan 이 안되므로 직접 Import 진행
+@EnableMyAutoConfiguration // ComponentScan 이 안되므로 직접 Import 진행
 public @interface MySpringBootApplication {
 }
