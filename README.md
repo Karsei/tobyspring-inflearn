@@ -18,3 +18,8 @@
   * Bean 오브젝트의 역할과 구분 (사용자 구성 정보, 자동 구성 정보) - AutoConfiguration 관련
     * 사용자 구성 정보 - HelloController, HelloDecorator, ...
     * 자동 구성 정보 - TomcatServletWebServerFactory, DispatcherSerlvet, ...
+    * 자동 구성 정보 파일 분리 및 어노테이션 적용
+  * `@Configuration`과 proxyBeanMethods
+* 조건부 자동 구성
+  * @Conditional, Conditional
+* 
