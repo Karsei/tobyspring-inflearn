@@ -1,2 +1,3 @@
 kr.pe.karsei.config.autoconfig.DispatcherServletConfig
 kr.pe.karsei.config.autoconfig.TomcatWebServerConfig
+kr.pe.karsei.config.autoconfig.JettyWebServerConfig
