@@ -1,3 +1,4 @@
+kr.pe.karsei.config.autoconfig.ServerPropertiesConfig
 kr.pe.karsei.config.autoconfig.PropertyPlaceholderConfig
 kr.pe.karsei.config.autoconfig.DispatcherServletConfig
 kr.pe.karsei.config.autoconfig.TomcatWebServerConfig
