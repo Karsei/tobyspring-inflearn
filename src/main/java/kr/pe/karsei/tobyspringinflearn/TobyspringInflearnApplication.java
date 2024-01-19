@@ -1,6 +1,9 @@
 package kr.pe.karsei.tobyspringinflearn;
 
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 @MySpringBootApplication // @Configuration + @ComponentScan -> 합성 Annotation
 //@Configuration
@@ -20,5 +23,13 @@ public class TobyspringInflearnApplication {
     public static void main(String[] args) {
         SpringApplication.run(TobyspringInflearnApplication.class, args);
         // MySpringApplication.run(TobyspringInflearnApplication.class, args);
+    }
+
+    @Bean
+    ApplicationRunner applicationRunner(Environment environment) {
+        return args -> {
+            String name = environment.getProperty("my.name");
+            System.out.println("My name: " + name);
+        };
     }
 }
