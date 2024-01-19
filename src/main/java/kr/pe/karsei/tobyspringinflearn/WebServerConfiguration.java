@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
 public class WebServerConfiguration {
-    @Bean
-    ServletWebServerFactory customWebServerFactory() {
-        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
-        factory.setPort(9090);
-
-        return factory;
-    }
+//    @Bean
+//    ServletWebServerFactory customWebServerFactory() {
+//        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+//        factory.setPort(9090);
+//
+//        return factory;
+//    }
 }
