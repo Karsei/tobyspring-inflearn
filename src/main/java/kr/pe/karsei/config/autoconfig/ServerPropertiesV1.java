@@ -1,6 +1,6 @@
 package kr.pe.karsei.config.autoconfig;
 
-public class ServerProperties {
+public class ServerPropertiesV1 {
     private String contextPath;
     private int port;
 
