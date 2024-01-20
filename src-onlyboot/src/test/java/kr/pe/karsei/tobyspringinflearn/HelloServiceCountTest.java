@@ -3,10 +3,13 @@ package kr.pe.karsei.tobyspringinflearn;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.IntStream;
 
-@HelloBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE) // 굳이 웹 환경을 구성할 필요 없음
+@Transactional
 public class HelloServiceCountTest {
     @Autowired
     HelloService helloService;

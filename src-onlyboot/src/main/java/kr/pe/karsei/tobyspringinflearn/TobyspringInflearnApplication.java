@@ -23,20 +23,8 @@ public class TobyspringInflearnApplication {
         jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS hello(name varchar(50) primary key, count int)");
     }
 
-    // 아래는 Config.java 로 이동됨
-//    @Bean
-//    public ServletWebServerFactory servletWebServerFactory() {
-//        return new TomcatServletWebServerFactory();
-//    }
-//
-//    @Bean
-//    public DispatcherServlet dispatcherServlet() {
-//        return new DispatcherServlet();
-//    }
-
     public static void main(String[] args) {
         SpringApplication.run(TobyspringInflearnApplication.class, args);
-        // MySpringApplication.run(TobyspringInflearnApplication.class, args);
     }
 
     @Bean
