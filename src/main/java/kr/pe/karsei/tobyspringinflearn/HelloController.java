@@ -32,4 +32,9 @@ public class HelloController {
         if (name == null || name.trim().length() == 0) throw new IllegalArgumentException();
         return service.sayHello(name);
     }
+
+    @GetMapping("count")
+    public String count(String name) {
+        return name + ": " + service.countOf(name);
+    }
 }
