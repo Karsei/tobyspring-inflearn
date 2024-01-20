@@ -1,4 +1,4 @@
-package kr.pe.karsei.tobyspringinflearn.study;
+package kr.pe.karsei.study;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
