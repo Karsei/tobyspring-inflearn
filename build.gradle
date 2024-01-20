@@ -16,9 +16,13 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework:spring-jdbc'
+    runtimeOnly 'com.h2database:h2:2.2.220'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+
     implementation ('org.springframework.boot:spring-boot-starter-web')
 //            {
-        // Spring Framework 에서는 대상 Bean 이 없으면 사용 가능한 Bean 을 찾는다.
+    // Spring Framework 에서는 대상 Bean 이 없으면 사용 가능한 Bean 을 찾는다.
 //        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 //    }
 //    implementation 'org.springframework.boot:spring-boot-starter-jetty'

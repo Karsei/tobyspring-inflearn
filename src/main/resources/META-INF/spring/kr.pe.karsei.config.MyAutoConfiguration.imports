@@ -1,3 +1,4 @@
+kr.pe.karsei.config.autoconfig.DataSourceConfig
 kr.pe.karsei.config.autoconfig.PropertyPostProcessorConfig
 kr.pe.karsei.config.autoconfig.ServerPropertiesV1Config
 kr.pe.karsei.config.autoconfig.PropertyPlaceholderConfig
