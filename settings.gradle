@@ -1,3 +1,4 @@
 rootProject.name = 'tobyspring-inflearn'
 include ':src',
-        ':src-onlyboot'
+        ':src-onlyboot',
+        ':src-onlycontainer'
