@@ -29,7 +29,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#documentat
 
 뭔가 라이브러리를 추가했을 때나 다른 적용 가능한 관련 기술이 뭐가 있을까? 도 고민해보면 좋음. 이런 경우에 장점이 뭐가 있고 이런 곳에 적용하면 어떤게 좋은지 등
 
-# `core` 자동 구성
+# `Core` 자동 구성
 
 ```java
 @AutoConfiguration
@@ -128,3 +128,9 @@ public class TaskExecutionProperties {
     ...
 }
 ```
+
+# `Web` 자동 구성
+
+살펴보기 전에 IDE 에서 제공하는 dependency 구조를 보면 어떤 의존 라이브러리들이 사용되고 있는지 확인 가능
+
+![ide_gradle_dependencies_web.png](images%2Fide_gradle_dependencies_web.png)
