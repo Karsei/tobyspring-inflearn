@@ -2,6 +2,8 @@
 
 ![springboot_autoconfiguration_analize_solutions.png](images%2Fspringboot_autoconfiguration_analize_solutions.png)
 
+https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#documentation
+
 # Spring Boot 자동 구성 분석 방법
 
 * `-Ddebug, --debug`
@@ -26,3 +28,103 @@
 살펴 보다가 Spring Framework 기술 뿐만 아니라 연관된 것까지 확인하면 좋음
 
 뭔가 라이브러리를 추가했을 때나 다른 적용 가능한 관련 기술이 뭐가 있을까? 도 고민해보면 좋음. 이런 경우에 장점이 뭐가 있고 이런 곳에 적용하면 어떤게 좋은지 등
+
+# `core` 자동 구성
+
+```java
+@AutoConfiguration
+@ConditionalOnProperty(prefix = "spring.aop", name = "auto", havingValue = "true", matchIfMissing = true)
+public class AopAutoConfiguration {
+    ...
+
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnMissingClass("org.aspectj.weaver.Advice")
+    @ConditionalOnProperty(prefix = "spring.aop", name = "proxy-target-class", havingValue = "true",
+            matchIfMissing = true)
+    static class ClassProxyingConfiguration {
+        @Bean
+        static BeanFactoryPostProcessor forceAutoProxyCreatorToUseClassProxying() {
+            return (beanFactory) -> {
+                if (beanFactory instanceof BeanDefinitionRegistry registry) {
+                    AopConfigUtils.registerAutoProxyCreatorIfNecessary(registry);
+                    AopConfigUtils.forceAutoProxyCreatorToUseClassProxying(registry);
+                }
+            };
+        }
+    }
+}
+```
+
+우리가 property 를 직접 정의하지 않았는데도 매칭되는 이유는 `matchIfMissing` 속성 때문
+
+`org.aspectj.weaver.Advice` 클래스가 존재하지 않으므로 위 `ClassProxyingConfiguration` 는 자동 구성에 포함되어짐
+
+Async 구성에 많이 사용되는 `TaskExecutionAutoConfiguration` 을 보면 빌더 패턴이 Bean 으로 등록되어 사용하는 것을 볼 수 있는데 나중에 따로 빌더 Bean 을 이용해서 별개로 커스텀하게 만들어 줄 수 도 있음
+
+```java
+@ConditionalOnClass(ThreadPoolTaskExecutor.class)
+@AutoConfiguration
+@EnableConfigurationProperties(TaskExecutionProperties.class)
+@Import({ TaskExecutorConfigurations.ThreadPoolTaskExecutorBuilderConfiguration.class,
+		TaskExecutorConfigurations.TaskExecutorBuilderConfiguration.class,
+		TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration.class,
+		TaskExecutorConfigurations.TaskExecutorConfiguration.class })
+public class TaskExecutionAutoConfiguration {
+```
+
+```java
+class TaskExecutorConfigurations {
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnMissingBean(Executor.class)
+    @SuppressWarnings("removal")
+    static class TaskExecutorConfiguration {
+        @Lazy
+        @Bean(name = {TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME,
+                AsyncAnnotationBeanPostProcessor.DEFAULT_TASK_EXECUTOR_BEAN_NAME})
+        @ConditionalOnThreading(Threading.PLATFORM)
+        ThreadPoolTaskExecutor applicationTaskExecutor(TaskExecutorBuilder taskExecutorBuilder,
+                                                       ObjectProvider<ThreadPoolTaskExecutorBuilder> threadPoolTaskExecutorBuilderProvider) {
+          ...
+        }
+    }
+    ...
+
+    @Configuration(proxyBeanMethods = false)
+    @SuppressWarnings("removal")
+    static class TaskExecutorBuilderConfiguration {
+        @Bean
+        @ConditionalOnMissingBean
+        @Deprecated(since = "3.2.0", forRemoval = true)
+        TaskExecutorBuilder taskExecutorBuilder(TaskExecutionProperties properties,
+                                                ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers,
+                                                ObjectProvider<TaskDecorator> taskDecorator) {
+            TaskExecutionProperties.Pool pool = properties.getPool();
+            TaskExecutorBuilder builder = new TaskExecutorBuilder();
+            builder = builder.queueCapacity(pool.getQueueCapacity());
+            builder = builder.corePoolSize(pool.getCoreSize());
+            builder = builder.maxPoolSize(pool.getMaxSize());
+            builder = builder.allowCoreThreadTimeOut(pool.isAllowCoreThreadTimeout());
+            builder = builder.keepAlive(pool.getKeepAlive());
+            TaskExecutionProperties.Shutdown shutdown = properties.getShutdown();
+            builder = builder.awaitTermination(shutdown.isAwaitTermination());
+            builder = builder.awaitTerminationPeriod(shutdown.getAwaitTerminationPeriod());
+            builder = builder.threadNamePrefix(properties.getThreadNamePrefix());
+            builder = builder.customizers(taskExecutorCustomizers.orderedStream()::iterator);
+            builder = builder.taskDecorator(taskDecorator.getIfUnique());
+            return builder;
+        }
+    }
+}
+```
+
+property 에 무엇이 있는지 알아보려면 관련 property 클래스를 찾아가면 됨
+
+기술을 사용하기 전에 **기본값이 무엇인지 미리 알아보는 것이 좋음**
+
+```java
+@ConfigurationProperties("spring.task.execution")
+public class TaskExecutionProperties {
+    private final Pool pool = new Pool();
+    ...
+}
+```
