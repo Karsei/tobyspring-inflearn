@@ -28,7 +28,7 @@ public class MySpringApplication {
                 // Tomcat 뿐만 아니라 다른 서버로도 이용 가능하도록 스프링에서 추상화를 지원한다.
                 ServletWebServerFactory factory = this.getBean(ServletWebServerFactory.class);
                 DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
-                // ApplicationContextAware 인터페이스를 이용해서 만들어진 Bean 은 나중에 나중에 팩토리 메서드에서 만들어지든 상관없이 컨테이너에 등록된 후에 컨테이너는 인터페이스의 setter 메소드(applicationContext)를 이용하여 주입한다.
+                // ApplicationContextAware 인터페이스를 이용해서 만들어진 Bean 은 나중에 팩토리 메서드에서 만들어지든 상관없이 컨테이너에 등록된 후에 컨테이너는 인터페이스의 setter 메소드(applicationContext)를 이용하여 주입한다.
                 // ApplicationContextAware 는 Spring 이 초기화되는 과정에서 호출된다.
                 dispatcherServlet.setApplicationContext(this);
 
