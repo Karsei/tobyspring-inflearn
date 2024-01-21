@@ -143,5 +143,11 @@ Builder 패턴도 제공하고 있음
 * EmbeddedWebServerFactoryFactoryCustomizerAutoConfiguration
 * DispatcherServletAutoConfiguration
 
+# `Jdbc` 자동 구성
 
-
+* DataSourceAutoConfiguration
+* DataSourceTransactionManager
+* SqlInitializationAutoConfiguration
+* TransactionAutoConfiguration
+  * PlatformTransactionManager
+  * TransactionTemplateConfiguration
