@@ -1,4 +1,4 @@
-인프런 `토비` 님의 `스프링 부트 이해와 원리` 강의를 들으면서 진행한 프로젝트입니다.
+인프런 `토비` 님의 `스프링 부트 이해와 원리` [강의](https://www.inflearn.com/course/%ED%86%A0%EB%B9%84-%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-%EC%9D%B4%ED%95%B4%EC%99%80%EC%9B%90%EB%A6%AC)를 들으면서 진행한 프로젝트입니다.
 
 * 독립 실행형 Servlet Application
   * Containerless, Opinionated
@@ -21,5 +21,11 @@
     * 자동 구성 정보 파일 분리 및 어노테이션 적용
   * `@Configuration`과 proxyBeanMethods
 * 조건부 자동 구성
-  * @Conditional, Conditional
-* 
+  * @Conditional, Condition
+* 외부 설정을 이용한 자동 구성
+  * Environment 추상화와 Property
+  * `@Value`, `PropertySourcesPlaceholderConfigurer`
+  * Property Bean 의 후처리기 도입
+* Spring JDBC 자동 구성 개발
+  * DataSource 자동 구성 클래스 및 JdbcTemplate, TransactionManager 구성
+* Spring Boot 자세히 살펴보기
