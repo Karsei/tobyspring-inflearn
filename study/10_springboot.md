@@ -134,3 +134,14 @@ public class TaskExecutionProperties {
 살펴보기 전에 IDE 에서 제공하는 dependency 구조를 보면 어떤 의존 라이브러리들이 사용되고 있는지 확인 가능
 
 ![ide_gradle_dependencies_web.png](images%2Fide_gradle_dependencies_web.png)
+
+* JacksonAutoConfiguration
+* RestTemplateAutoConfiguration
+
+Builder 패턴도 제공하고 있음
+
+* EmbeddedWebServerFactoryFactoryCustomizerAutoConfiguration
+* DispatcherServletAutoConfiguration
+
+
+
