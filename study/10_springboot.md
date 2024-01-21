@@ -151,3 +151,45 @@ Builder 패턴도 제공하고 있음
 * TransactionAutoConfiguration
   * PlatformTransactionManager
   * TransactionTemplateConfiguration
+
+# 정리
+
+## 목적
+
+* Spring Boot 가 Spring 기술을 어떻게 활용하는지 배우고 응용할 수 있다.
+* Spring Boot 가 선택한 기술, 자동으로 만들어주는 구성, Default 설정이 어떤 것인지 확인할 수 있다.
+* 필요할 때 Boot 의 기본 구성을 수정하거나 확장할 수 있다.
+* 나만의 Spring Boot 모듈을 만들어 활용할 수 있다.
+
+## Spring Boot
+
+Spring Framework 를 잘 쓰게 도와주는 도구의 모음
+
+* Servlet 컨테이너와 관련된 모든 번거로운 작업을 감춰줌
+* Spring 과 각종 기술의 주요 인프라스트럭처 Bean 을 자동 구성을 이용해서 자동으로 등록해줌
+* 외부 설정, Custom Bean 등록을 통해 유연하게 확장 가능
+
+## Spring Framework
+
+* Bean 오브젝트의 생명 주기를 관리하는 컨테이너
+* Bean 오브젝트의 의존 관계를 동적으로 주입해주는 Assembler
+  * 런타임에 동적으로 컨테이너에 의해서 관계가 주입됨. Dependency Injection Assembler 역할을 해줌
+* 구성 정보(Configuration Metadata)와 애플리케이션 기능을 담은 오브젝트가 결합되어 동작하는 애플리케이션이 된다.
+* `@Configuration`, `@Bean`, `@Import` 를 이용한 구성 정보
+* 메타 애노테이션, 합성 애노테이션
+
+## 더 알아가야 할 주제들
+
+* Spring Boot Core (Profile, Logging, Testing, ...)
+* 핵심 기술 영역 (Web, Data, Messaging, IO, ...)
+* 운영 환경의 모니터링, 관리 방법
+  * production ready feature
+* 컨테이너, 배포, 빌드 툴
+* Spring Boot 3.x
+* Spring Framework 와 Java 표준, 오픈소스 기술
+
+## Spring Boot 3.0
+
+* Spring 6
+* JDK 17 또는 그 이상
+* Jakarta EE 9, 10
